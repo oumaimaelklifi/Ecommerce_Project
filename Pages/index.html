@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Boutique</title>
+    <link rel="stylesheet" href="../css/Home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">E-Boutique</div>
+            <div class="search-bar">
+                <input type="text" id="search-filter" placeholder="Rechercher un produit...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Boutique</a></li>
+                    <li><a href="admin.html">Administration</a></li>
+                    <li><a href="#" id="categories-link">Catégories</a></li>
+                    <li><a href="#" id="promo-link">Promotions</a></li>
+                </ul>
+            </nav>
+            <div class="user-account">
+                <!-- <a href="#" id="login-btn"><i class="fas fa-user"></i></a> -->
+                <div class="login-dropdown">
+                    <form id="login-form">
+                        <h3>Connexion</h3>
+                        <input type="email" placeholder="Email" required>
+                        <input type="password" placeholder="Mot de passe" required>
+                        <button type="submit">Se connecter</button>
+                        <p>Pas encore de compte? <a href="#" id="register-link">S'inscrire</a></p>
+                    </form>
+                </div>
+            </div>
+            <a href="cart.html">
+                <div class="cart-icon" id="cartIcon">
+                    🛒 <span class="cart-count">0</span>
+                </div>
+            </a>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Bienvenue sur Trends</h2>
+                <p>Découvrez nos produits de haute qualité à prix compétitifs</p>
+                <a href="#featured-products" class="btn">Voir les produits</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="filter-section">
+            <div class="filter-options">
+                <input type="text" id="searchInput" placeholder="Rechercher...">
+                <select id="categoryFilter">
+                    <option value="">Toutes catégories</option>
+                    <option value="électronique">Électronique</option>
+                    <option value="vêtements">Vêtements</option>
+                    <option value="maison">Maison</option>
+                </select>
+                <select id="priceFilter">
+                    <option value="">Prix (tous)</option>
+                    <option value="0-50">0€ - 50€</option>
+                    <option value="50-100">50€ - 100€</option>
+                    <option value="100+">Plus de 100€</option>
+                </select>
+                <button id="filterBtn">Filtrer</button>
+            </div>
+        </div>
+        <h2 class="section-title" id="featured-products">Produits en vedette</h2>
+    
+        <div class="products-grid" id="productsGrid">
+            
+            <!-- Les produits seront générés dynamiquement ici -->
+        </div>
+    </div>
+    <section class="promo-banner">
+        <div class="container">
+            <div class="promo-content">
+                <h2>Offre Spéciale</h2>
+                <p>Jusqu'à 50% de réduction sur une sélection de produits</p>
+                <a href="#" class="btn">Voir les offres</a>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Ce que disent nos clients</h2>
+            <div class="testimonials" id="testimonials-slider">
+                <div class="testimonials-container">
+                    <div class="testimonials-slider">
+                        <div class="testimonial-card">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"I'm absolutely in love with the quality of the products! Fast shipping and excellent customer service. Will definitely be a returning customer."</p>
+                            <div class="testimonial-author">
+                                <img src="../Assets/oumaima_image-removebg-preview (3).png" alt="Customer" class="author-img">
+                                <div class="author-info">
+                                    <h4>Oumaima El Khlifi</h4>
+                                    <p>Loyal Customer</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="testimonial-text">"The selection at Trends is amazing! I found exactly what I was looking for at a great price. The website is also very easy to navigate."</p>
+                            <div class="testimonial-author">
+                                <img src="../Assets/7dea4200-5ee2-400d-a7e6-02424c14975e.jpg" alt="Customer" class="author-img">
+                                <div class="author-info">
+                                    <h4>Aya ElOuriachi</h4>
+                                    <p>New Customer</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Abonnez-vous à notre newsletter</h2>
+                <p>Recevez en avant-première nos offres exclusives et nouveautés</p>
+                <form id="newsletter-form">
+                    <input type="email" placeholder="Votre adresse email" required>
+                    <button type="submit" class="btn">S'abonner</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>À propos d'E-Shop</h3>
+                    <p>E-Shop est votre destination pour tous vos besoins en électronique. Nous proposons des produits de qualité à des prix compétitifs.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Liens utiles</h3>
+                    <ul>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                        <li><a href="#">Livraison et retours</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Commerce, 75000 Paris</p>
+                    <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+                    <p><i class="fas fa-envelope"></i> contact@e-shop.com</p>
+                </div>
+                <div class="footer-social">
+                    <h3>Suivez-nous</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Shop. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/shared.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+</html>

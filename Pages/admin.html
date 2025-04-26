@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - E-Boutique</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../Css/Home.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">E-Boutique</div>
+           
+            <nav>
+                <ul>
+                    <li><a href="index.html">Boutique</a></li>
+                    <li><a href="admin.html">Administration</a></li>
+                    
+                </ul>
+            </nav>
+            <div class="user-account">
+                <a href="#" id="login-btn"><i class="fas fa-user-shield"></i></a>
+                <div class="login-dropdown">
+                    <form id="login-form">
+                        <h3>Connexion</h3>
+                        <p style="color: black;"> Connecté en tant qu'administrateur</p>
+                        <button type="button" style="margin-top: 10px; padding: 8px; border: none; border-radius: var(--border-radius); cursor: pointer;">Se déconnecter</button>
+                        
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="admin-section">
+            <h2 class="admin-title">Panneau d'administration</h2>
+            
+            <div class="tabs">
+                <button class="tab active" data-tab="addProduct"><i class="fas fa-plus-circle"></i> Ajouter un produit</button>
+                <button class="tab" data-tab="manageProducts"><i class="fas fa-list"></i> Gérer les produits</button>
+            </div>
+            
+            <div class="tab-content active" id="addProduct">
+                <form id="addProductForm" class="admin-form">
+                    <div>
+                        <label for="productName">Nom du produit</label>
+                        <input type="text" id="productName" placeholder="Ex: Smartphone Pro X" required>
+                    </div>
+                    <div>
+                        <label for="productPrice">Prix (€)</label>
+                        <input type="number" id="productPrice" min="0" step="0.01" placeholder="Ex: 499.99" required>
+                    </div>
+                    <div>
+                        <label for="productImage">Image du produit</label>
+                        <input type="file" id="productImage" accept="image/*" required>
+                    </div>
+                    <div>
+                        <label for="productCategory">Catégorie</label>
+                        <select id="productCategory" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="électronique">Électronique</option>
+                            <option value="vêtements">Vêtements</option>
+                            <option value="maison">Maison</option>
+                            <option value="beauté">Beauté</option>
+                            <option value="sports">Sports & Loisirs</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="productStock">Stock</label>
+                        <input type="number" id="productStock" min="0" placeholder="Ex: 50" required>
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" rows="4" placeholder="Décrivez votre produit en détail..." required></textarea>
+                    </div>
+                    <button type="submit"><i class="fas fa-save"></i> Ajouter le produit</button>
+                </form>
+            </div>
+            
+            <div class="tab-content" id="manageProducts">
+                <div class="admin-products" id="adminProductsList">
+                    <!-- Les produits admin seront générés dynamiquement ici -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Abonnez-vous à notre newsletter</h2>
+                <p>Recevez en avant-première nos offres exclusives et nouveautés</p>
+                <form id="newsletter-form">
+                    <input type="email" placeholder="Votre adresse email" required>
+                    <button type="submit" class="btn">S'abonner</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>À propos d'E-Shop</h3>
+                    <p>E-Shop est votre destination pour tous vos besoins en électronique. Nous proposons des produits de qualité à des prix compétitifs.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Liens utiles</h3>
+                    <ul>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                        <li><a href="#">Livraison et retours</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Commerce, 75000 Paris</p>
+                    <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+                    <p><i class="fas fa-envelope"></i> contact@e-shop.com</p>
+                </div>
+                <div class="footer-social">
+                    <h3>Suivez-nous</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Shop. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/shared.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - E-Boutique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6de5;
+            --secondary-color: #f8f9fa;
+            --accent-color: #3b55c5;
+            --text-color: #333;
+            --light-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f6f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+            background-color: var(--light-gray);
+        }
+        
+        .user-account {
+            position: relative;
+        }
+        
+        .user-account a {
+            color: var(--text-color);
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .user-account a:hover {
+            color: var(--primary-color);
+        }
+        
+        .login-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            width: 240px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 15px;
+            display: none;
+        }
+        
+        .login-dropdown.active {
+            display: block;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .hero-content h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .hero-content p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        /* Admin Section */
+        .admin-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .admin-title {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--light-gray);
+            padding-bottom: 15px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: var(--light-gray);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: #dde1e7;
+        }
+        
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Form Styles */
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .admin-form > div {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .admin-form label {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .admin-form input,
+        .admin-form select,
+        .admin-form textarea {
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            background: #f9f9f9;
+            font-size: 16px;
+        }
+        
+        .admin-form input:focus,
+        .admin-form select:focus,
+        .admin-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 109, 229, 0.2);
+        }
+        
+        .admin-form input[type="file"] {
+            padding: 10px 0;
+            background: none;
+        }
+        
+        .admin-form button {
+            grid-column: span 2;
+            padding: 14px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .admin-form button:hover {
+            background: var(--accent-color);
+        }
+        
+        /* Admin Products */
+        .admin-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .admin-product-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .admin-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .admin-product-details {
+            padding: 15px;
+        }
+        
+        .admin-product-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .admin-product-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .admin-product-stock {
+            font-size: 14px;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+        
+        .admin-product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .admin-product-actions button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .admin-product-edit {
+            background: var(--light-gray);
+            color: var(--text-color);
+        }
+        
+        .admin-product-edit:hover {
+            background: #dde1e7;
+        }
+        
+        .admin-product-delete {
+            background: #ffe5e5;
+            color: var(--danger-color);
+        }
+        
+        .admin-product-delete:hover {
+            background: #ffd1d1;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background-color: var(--secondary-color);
+            padding: 60px 0;
+        }
+        
+        .newsletter-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-content h2 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .newsletter-content p {
+            margin-bottom: 25px;
+            color: var(--dark-gray);
+        }
+        
+        #newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        #newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            font-size: 16px;
+        }
+        
+        #newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        #newsletter-form button {
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        #newsletter-form button:hover {
+            background: var(--accent-color);
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-content h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .footer-about p {
+            line-height: 1.7;
+            color: #bbb;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            color: #bbb;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .admin-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-form button {
+                grid-column: span 1;
+            }
+            
+            #newsletter-form {
+                flex-direction: column;
+            }
+            
+            #newsletter-form input {
+                border-radius: var(--border-radius);
+                margin-bottom: 10px;
+            }
+            
+            #newsletter-form button {
+                border-radius: var(--border-radius);
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+        }
+
+        /* Ajout d'animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .admin-section {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Pour simuler des produits dans la vue "Gérer les produits" */
+        #adminProductsList {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 180px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+        }
+
+        .product-details {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-category {
+            color: var(--dark-gray);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .product-stock {
+            font-size: 14px;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-edit, .btn-delete {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn-edit {
+            background: #e9f0fd;
+            color: var(--primary-color);
+        }
+
+        .btn-edit:hover {
+            background: #d0e0fb;
+        }
+
+        .btn-delete {
+            background: #ffebee;
+            color: var(--danger-color);
+        }
+
+        .btn-delete:hover {
+            background: #ffcdd2;
+        }
+
+        /* Badge de statut */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .in-stock {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .low-stock {
+            background: #fff8e1;
+            color: #f57f17;
+        }
+
+        .out-of-stock {
+            background: #ffebee;
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">E-Boutique</div>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Boutique</a></li>
+                    <li><a href="admin.html" style="background-color: var(--light-gray); color: var(--primary-color);">Administration</a></li>
+                </ul>
+            </nav>
+            <div class="user-account">
+                <a href="#" id="login-btn"><i class="fas fa-user-shield"></i></a>
+                <div class="login-dropdown">
+                    <form id="login-form">
+                        <h3>Admin</h3>
+                        <p>Connecté en tant qu'administrateur</p>
+                        <button type="button" style="margin-top: 10px; padding: 8px; background: var(--light-gray); border: none; border-radius: var(--border-radius); cursor: pointer;">Se déconnecter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Bienvenue sur votre tableau de bord</h2>
+                <p>Gérez vos produits, suivez vos ventes et optimisez votre boutique en ligne.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="admin-section">
+            <h2 class="admin-title">Panneau d'administration</h2>
+            
+            <div class="tabs">
+                <button class="tab active" data-tab="addProduct"><i class="fas fa-plus-circle"></i> Ajouter un produit</button>
+                <button class="tab" data-tab="manageProducts"><i class="fas fa-list"></i> Gérer les produits</button>
+            </div>
+            
+            <div class="tab-content active" id="addProduct">
+                <form id="addProductForm" class="admin-form">
+                    <div>
+                        <label for="productName">Nom du produit</label>
+                        <input type="text" id="productName" placeholder="Ex: Smartphone Pro X" required>
+                    </div>
+                    <div>
+                        <label for="productPrice">Prix (€)</label>
+                        <input type="number" id="productPrice" min="0" step="0.01" placeholder="Ex: 499.99" required>
+                    </div>
+                    <div>
+                        <label for="productImage">Image du produit</label>
+                        <input type="file" id="productImage" accept="image/*" required>
+                    </div>
+                    <div>
+                        <label for="productCategory">Catégorie</label>
+                        <select id="productCategory" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="électronique">Électronique</option>
+                            <option value="vêtements">Vêtements</option>
+                            <option value="maison">Maison</option>
+                            <option value="beauté">Beauté</option>
+                            <option value="sports">Sports & Loisirs</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="productStock">Stock</label>
+                        <input type="number" id="productStock" min="0" placeholder="Ex: 50" required>
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" rows="4" placeholder="Décrivez votre produit en détail..." required></textarea>
+                    </div>
+                    <button type="submit"><i class="fas fa-save"></i> Ajouter le produit</button>
+                </form>
+            </div>
+            
+            <div class="tab-content" id="manageProducts">
+                <div class="admin-products" id="adminProductsList">
+                    <!-- Exemple de produits -->
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+    <script>
+        // Toggle entre les onglets
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Retirer la classe active de tous les onglets
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                // Ajouter la classe active à l'onglet cliqué
+                this.classList.add('active');
+                
+                // Masquer tous les contenus d'onglet
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                // Afficher le contenu correspondant
+                document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+        
+        // Dropdown du menu utilisateur
+        document.getElementById('login-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.login-dropdown').classList.toggle('active');
+        });
+        
+        // Fermer le dropdown quand on clique ailleurs
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.user-account')) {
+                document.querySelector('.login-dropdown').classList.remove('active');
+            }
+        });
+        
+        // Formulaire d'ajout de produit
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simuler l'ajout d'un produit
+            alert('Produit ajouté avec succès !');
+            this.reset();
+        });
+        
+        // Newsletter
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci de vous être abonné à notre newsletter !');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

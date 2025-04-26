@@ -1,0 +1,126 @@
+.cart-container {
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.cart-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.cart-items {
+    margin-top: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-details {
+    display: flex;
+    align-items: center;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+    gap: 10px; /* Ajout d'un espacement entre les boutons + et - */
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: #eee;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-value {
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.item-price {
+    font-weight: bold;
+    min-width: 100px;
+    text-align: right;
+}
+
+.item-remove {
+    margin-left: 20px;
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cart-total {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.checkout-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.checkout-btn:hover {
+    background-color: #45a049;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 30px 0;
+    color: #777;
+}
+
+.continue-shopping {
+    margin-top: 20px;
+    display: inline-block;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.clear-cart {
+    background-color: #f44336;
+    margin-right: 10px;
+}
+
+.clear-cart:hover {
+    background-color: #d32f2f;
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+}

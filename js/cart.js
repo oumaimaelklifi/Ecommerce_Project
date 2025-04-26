@@ -1,4 +1,4 @@
-// Initialisation
+
 document.addEventListener('DOMContentLoaded', () => {
     // Charger les produits et le panier
     loadProducts();
@@ -158,7 +158,7 @@ function increaseQuantity(productId) {
     }
 }
 
-// Vider le panier
+
 function clearCart() {
     if (confirm("Êtes-vous sûr de vouloir vider votre panier ?")) {
         cart.forEach(item => {
@@ -194,7 +194,7 @@ function checkout() {
     updateCartCount();
 }
 
-// Fonction pour continuer vos achats
+
 function continueShopping() {
     window.location.href = 'index.html'; 
 }

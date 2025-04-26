@@ -1,25 +1,23 @@
 
-// Initialisation
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Charger les produits
+
     loadProducts();
-    
-    // Mettre à jour le compteur du panier
     updateCartCount();
     
-    // Afficher les détails du produit
+
     const urlParams = new URLSearchParams(window.location.search);
     const productId = parseInt(urlParams.get('id'));
     
     if (productId) {
         showProductDetail(productId);
     } else {
-        // Redirection vers la page principale si aucun ID n'est fourni
+        
         window.location.href = 'index.html';
     }
 });
 
-// Afficher les détails d'un produit
+
 function showProductDetail(productId) {
     const product = products.find(p => p.id === productId);
     const productDetail = document.getElementById('productDetail');
@@ -39,16 +37,13 @@ function showProductDetail(productId) {
             </div>
         `;
 
-        // Gestionnaire d'événement pour le bouton
         productDetail.querySelector('.add-to-cart-btn').addEventListener('click', (e) => {
             const id = parseInt(e.target.getAttribute('data-id'));
             addToCart(id);
         });
 
-        // Mettre à jour le titre
         document.title = `${product.name} - E-Boutique`;
 
-        // Afficher les produits similaires
         const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3);
 
         if (relatedProducts.length > 0) {

@@ -1,20 +1,15 @@
 
-// Initialisation
 document.addEventListener('DOMContentLoaded', () => {
-    // Charger les produits du localStorage ou utiliser les produits par défaut
+
     loadProducts();
-    
-    // Afficher les produits
     displayProducts(products);
-    
-    // Mettre à jour le compteur du panier
     updateCartCount();
     
-    // Gestionnaires d'événements
+ 
     document.getElementById('filterBtn').addEventListener('click', filterProducts);
 });
 
-// Afficher les produits dans la grille
+
 function displayProducts(productsToDisplay) {
     const productsGrid = document.getElementById('productsGrid');
     productsGrid.innerHTML = '';
@@ -28,7 +23,7 @@ function displayProducts(productsToDisplay) {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
         
-        // Créer l'élément image
+       
         const imgElement = document.createElement('img');
         imgElement.alt = product.name;
         imgElement.src = product.image;
@@ -38,17 +33,15 @@ function displayProducts(productsToDisplay) {
             this.onerror = null;
         };
 
-        // Conteneur pour l'image + description
         const imgContainer = document.createElement('div');
         imgContainer.className = 'product-image';
-        imgContainer.style.position = 'relative'; // important
+        imgContainer.style.position = 'relative'; 
         
-        // Description cachée
         const descriptionElement = document.createElement('div');
         descriptionElement.className = 'product-description';
         descriptionElement.textContent = product.description;
         
-        // On ajoute image + description dans imgContainer
+     
         imgContainer.appendChild(imgElement);
         imgContainer.appendChild(descriptionElement);
         
@@ -85,15 +78,14 @@ function filterProducts() {
     const priceFilter = document.getElementById('priceFilter').value;
     
     let filteredProducts = products.filter(product => {
-        // Filtrer par terme de recherche
+      
         const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
                              product.description.toLowerCase().includes(searchTerm);
         
-        // Filtrer par catégorie
+       
         const matchesCategory = categoryFilter === '' || product.category === categoryFilter;
         
-        // Filtrer par prix
-        let matchesPrice = true;
+      
         if (priceFilter === '0-50') {
             matchesPrice = product.price <= 50;
         } else if (priceFilter === '50-100') {

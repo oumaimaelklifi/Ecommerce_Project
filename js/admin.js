@@ -1,10 +1,10 @@
-
 document.addEventListener('DOMContentLoaded', () => {
    
     loadProducts();
     updateCartCount();
     displayAdminProducts();
-    
+  
+    initializeImagePreview();
  
     document.getElementById('addProductForm').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -34,7 +34,14 @@ function displayAdminProducts() {
         const productItem = document.createElement('div');
         productItem.className = 'admin-product-item';
         productItem.dataset.id = product.id;
+        
+  
+        const imageUrl = product.image || 'placeholder.jpg';
+        
         productItem.innerHTML = `
+            <div class="admin-product-image">
+                <img src="${imageUrl}" alt="${product.name}" style="max-width: 100px; max-height: 100px;">
+            </div>
             <div class="admin-product-info">
                 <strong>${product.name}</strong> - ${product.price.toFixed(2)}€ - Catégorie: ${product.category} - Stock: ${product.stock}
             </div>
@@ -73,6 +80,8 @@ function showEditForm(productId, productItem) {
      
         const editForm = document.createElement('div');
         editForm.className = 'edit-form show';
+        
+   
         editForm.innerHTML = `
             <form class="admin-form" id="editForm-${productId}">
                 <div>
@@ -95,6 +104,18 @@ function showEditForm(productId, productItem) {
                     <label for="editStock-${productId}">Stock</label>
                     <input type="number" id="editStock-${productId}" min="0" value="${product.stock}" required>
                 </div>
+                <div>
+                    <label for="editImage-${productId}">Image URL</label>
+                    <input type="text" id="editImage-${productId}" value="${product.image || ''}" placeholder="URL de l'image">
+                </div>
+                <div class="image-preview-container">
+                    <label>Aperçu de l'image actuelle</label>
+                    <img id="editImagePreview-${productId}" src="${product.image || 'placeholder.jpg'}" alt="Aperçu" style="max-width: 200px; max-height: 200px;">
+                </div>
+                <div>
+                    <label for="editImageFile-${productId}">Télécharger une nouvelle image</label>
+                    <input type="file" id="editImageFile-${productId}" accept="image/*">
+                </div>
                 <div style="grid-column: span 2;">
                     <label for="editDescription-${productId}">Description</label>
                     <textarea id="editDescription-${productId}" rows="4" required>${product.description}</textarea>
@@ -105,6 +126,30 @@ function showEditForm(productId, productItem) {
         `;
         
         productItem.after(editForm);
+        
+  
+        const imageUrlInput = document.getElementById(`editImage-${productId}`);
+        const imagePreview = document.getElementById(`editImagePreview-${productId}`);
+        
+        imageUrlInput.addEventListener('input', () => {
+            imagePreview.src = imageUrlInput.value || 'placeholder.jpg';
+        });
+        
+       
+        const imageFileInput = document.getElementById(`editImageFile-${productId}`);
+        
+        imageFileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    imagePreview.src = event.target.result;
+                    imageUrlInput.value = event.target.result; 
+                }
+                
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
         
         document.getElementById(`editForm-${productId}`).addEventListener('submit', (e) => {
             e.preventDefault();
@@ -128,11 +173,13 @@ function updateProduct(productId) {
         product.category = document.getElementById(`editCategory-${productId}`).value;
         product.stock = parseInt(document.getElementById(`editStock-${productId}`).value);
         product.description = document.getElementById(`editDescription-${productId}`).value;
+        product.image = document.getElementById(`editImage-${productId}`).value;
         
         const cartItem = cart.find(item => item.id === productId);
         if (cartItem) {
             cartItem.name = product.name;
             cartItem.price = product.price;
+            cartItem.image = product.image;
             saveCart();
         }
         
@@ -150,6 +197,7 @@ function addNewProduct() {
     const category = document.getElementById('productCategory').value;
     const stock = parseInt(document.getElementById('productStock').value);
     const description = document.getElementById('productDescription').value;
+    const image = document.getElementById('productImage').value;
     
 
     const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
@@ -161,13 +209,13 @@ function addNewProduct() {
         price: price,
         category: category,
         description: description,
-        stock: stock
+        stock: stock,
+        image: image
     };
-    
-    // Ajouter à la liste des produits
+  
     products.push(newProduct);
     
-    // Sauvegarder les changements
+
     saveProducts();
     
    
@@ -175,6 +223,12 @@ function addNewProduct() {
     
  
     document.getElementById('addProductForm').reset();
+    
+
+    const productImagePreview = document.getElementById('productImagePreview');
+    if (productImagePreview) {
+        productImagePreview.src = 'placeholder.jpg';
+    }
     
     alert('Produit ajouté avec succès !');
 }
@@ -218,4 +272,30 @@ function switchAdminTab(clickedTab, tabId) {
   
     clickedTab.classList.add('active');
     document.getElementById(tabId).classList.add('active');
+}
+
+function initializeImagePreview() {
+    const productImageInput = document.getElementById('productImage');
+    const productImagePreview = document.getElementById('productImagePreview');
+    const productImageFile = document.getElementById('productImageFile');
+    
+    if (productImageInput && productImagePreview && productImageFile) {
+       
+        productImageInput.addEventListener('input', () => {
+            productImagePreview.src = productImageInput.value || 'placeholder.jpg';
+        });
+        
+        productImageFile.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    productImagePreview.src = event.target.result;
+                    productImageInput.value = event.target.result; 
+                }
+                
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+    }
 }

@@ -63,7 +63,7 @@ input, select, button {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color:   var(   --primary-color);
     color: white;
     border: none;
     cursor: pointer;

@@ -57,11 +57,8 @@
         <div class="filter-section">
             <div class="filter-options">
                 <input type="text" id="searchInput" placeholder="Rechercher...">
-                <select id="categoryFilter">
-                    <option value="">Toutes catégories</option>
-                    <option value="électronique">Électronique</option>
-                    <option value="vêtements">Vêtements</option>
-                    <option value="maison">Maison</option>
+                <select id="categoryFilter" onchange="filterProducts()">
+                    <!-- Les options seront ajoutées dynamiquement -->
                 </select>
                 <select id="priceFilter">
                     <option value="">Prix (tous)</option>

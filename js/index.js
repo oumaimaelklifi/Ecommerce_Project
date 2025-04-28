@@ -70,22 +70,48 @@ function displayProducts(productsToDisplay) {
     });
 }
 
+// Fonction pour charger dynamiquement les catégories dans le filtre
+function loadCategoryOptions() {
+    const categoryFilter = document.getElementById('categoryFilter');
+    
+    // Créer une option vide par défaut
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Toutes les catégories';
+    categoryFilter.appendChild(defaultOption);
+    
+    // Extraire toutes les catégories uniques de vos produits
+    const categories = [...new Set(products.map(product => product.category))];
+    
+    // Créer et ajouter une option pour chaque catégorie
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+    });
+}
 
-// Filtrer les produits
+// Appeler cette fonction au chargement de la page
+window.addEventListener('DOMContentLoaded', function() {
+    loadCategoryOptions();
+    // Afficher tous les produits au chargement initial
+    displayProducts(products);
+});
+
+// Votre fonction filterProducts reste inchangée
 function filterProducts() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const categoryFilter = document.getElementById('categoryFilter').value;
     const priceFilter = document.getElementById('priceFilter').value;
     
     let filteredProducts = products.filter(product => {
-      
-        const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
                              product.description.toLowerCase().includes(searchTerm);
         
-       
         const matchesCategory = categoryFilter === '' || product.category === categoryFilter;
         
-      
+        let matchesPrice = true;
         if (priceFilter === '0-50') {
             matchesPrice = product.price <= 50;
         } else if (priceFilter === '50-100') {

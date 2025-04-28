@@ -41,9 +41,36 @@
         <div class="admin-section">
             <h2 class="admin-title">Panneau d'administration</h2>
             
+            <!-- Ajout du tableau de bord statistique -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <i class="fas fa-box"></i>
+                    <h3>Total Produits</h3>
+                    <p id="totalProducts">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Commandes</h3>
+                    <p id="totalOrders">200</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Clients</h3>
+                    <p id="totalCustomers">20</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-euro-sign"></i>
+                    <h3>Revenus</h3>
+                    <p id="totalRevenue">2000 €</p>
+                </div>
+            </div>
+            
+            <!-- Mise à jour des onglets pour inclure les nouveaux -->
             <div class="tabs">
                 <button class="tab active" data-tab="addProduct"><i class="fas fa-plus-circle"></i> Ajouter un produit</button>
                 <button class="tab" data-tab="manageProducts"><i class="fas fa-list"></i> Gérer les produits</button>
+                <button class="tab" data-tab="manageOrders"><i class="fas fa-shopping-cart"></i> Commandes</button>
+                <button class="tab" data-tab="settings"><i class="fas fa-cog"></i> Paramètres</button>
             </div>
             
             <div class="tab-content active" id="addProduct">
@@ -60,9 +87,15 @@
                     <div class="form-group">
                         <label for="productCategory">Catégorie</label>
                         <select id="productCategory" required>
+                            <option value="">Toutes les catégories</option>
                             <option value="électronique">Électronique</option>
                             <option value="vêtements">Vêtements</option>
                             <option value="maison">Maison</option>
+                            <option value="jardin">Jardin</option>
+                            <option value="beauté">Beauté</option>
+                            <option value="sports">Sports</option>
+                            <option value="livres">Livres</option>
+                            <option value="jouets">Jouets</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -93,25 +126,85 @@
                 </form>
             </div>
             
+            <!-- Mise à jour de la section Gérer les produits -->
             <div class="tab-content" id="manageProducts">
+                <div class="products-controls">
+                   
+                  
+                </div>
                 <div class="admin-products" id="adminProductsList">
                     <!-- Les produits admin seront générés dynamiquement ici -->
                 </div>
+               
             </div>
-        </div>
-    </div>
-    <section class="newsletter">
-        <div class="container">
-            <div class="newsletter-content">
-                <h2>Abonnez-vous à notre newsletter</h2>
-                <p>Recevez en avant-première nos offres exclusives et nouveautés</p>
-                <form id="newsletter-form">
-                    <input type="email" placeholder="Votre adresse email" required>
-                    <button type="submit" class="btn">S'abonner</button>
+            
+            <!-- Nouvel onglet Commandes -->
+            <div class="tab-content" id="manageOrders">
+                <div class="orders-filter">
+                    <select id="orderStatusFilter">
+                        <option value="all">Tous les statuts</option>
+                        <option value="pending">En attente</option>
+                        <option value="processing">En traitement</option>
+                        <option value="completed">Complété</option>
+                        <option value="cancelled">Annulé</option>
+                    </select>
+                    <input type="date" id="orderDateFilter">
+                    <button id="filterOrdersBtn">Filtrer</button>
+                </div>
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Client</th>
+                            <th>Date</th>
+                            <th>Montant</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersList">
+                        <!-- Les commandes seront générées dynamiquement ici -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Nouvel onglet Paramètres -->
+            <div class="tab-content" id="settings">
+                <form id="siteSettingsForm" class="admin-form">
+                    <h3>Paramètres du site</h3>
+                    <div class="form-group">
+                        <label for="siteName">Nom du site</label>
+                        <input type="text" id="siteName" value="E-Boutique">
+                    </div>
+                    <div class="form-group">
+                        <label for="siteDescription">Description</label>
+                        <textarea id="siteDescription" rows="3">Votre destination pour tous vos besoins en ligne.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email de contact</label>
+                        <input type="email" id="contactEmail" value="contact@e-shop.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Téléphone</label>
+                        <input type="text" id="contactPhone" value="+33 1 23 45 67 89">
+                    </div>
+                    
+                    <h3>Paramètres de livraison</h3>
+                    <div class="form-group">
+                        <label for="freeShippingThreshold">Seuil de livraison gratuite (€)</label>
+                        <input type="number" id="freeShippingThreshold" value="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="shippingFee">Frais de livraison standard (€)</label>
+                        <input type="number" id="shippingFee" value="5.99">
+                    </div>
+                    
+                    <button type="submit">Enregistrer les paramètres</button>
                 </form>
             </div>
         </div>
-    </section>
+    </div>
+    
 
     <footer>
         <div class="container">

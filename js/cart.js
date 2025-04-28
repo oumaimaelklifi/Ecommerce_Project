@@ -31,6 +31,7 @@ function updateCartDisplay() {
 
     if (cart.length === 0) {
         cartItems.innerHTML = `
+        
         <tr>
             <td colspan="5" style="text-align: center; padding: 50px;">
                 <div style="display: flex; flex-direction: column; align-items: center;">
@@ -71,6 +72,7 @@ function updateCartDisplay() {
         const row = document.createElement('tr');
         row.className = 'cart-item';
         row.innerHTML = `
+        <table>
             <td class="item-details">
                 <img src="${item.image}" alt="${item.name}" width="60" style="vertical-align:middle;">
                 <div style="display:inline-block; margin-left:10px;">
@@ -88,6 +90,7 @@ function updateCartDisplay() {
             <td class="item-remove">
                 <span data-id="${item.id}" style="cursor:pointer; color:red; font-size:20px;">✖️</span>
             </td>
+            </table>
         `;
 
         cartItems.appendChild(row);

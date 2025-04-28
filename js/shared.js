@@ -1,29 +1,28 @@
-
 let defaultProducts = [
     {
         id: 1,
         name: "Smartphone XYZ",
         price: 299.99,
         category: "électronique",
-        description: "Un smartphone performant avec un écran HD, 128Go de stockage et une batterie longue durée.",
+        description: "Smartphone performant avec écran HD, 128Go de stockage et batterie longue durée.",
         stock: 15,
-        image: '../Assets/ecouteir.jpg', 
+        image: "../Assets/ecouteir.jpg", 
     },
     {
         id: 2,
         name: "Laptop Pro",
         price: 899.99,
         category: "électronique",
-        description: "Ordinateur portable puissant avec processeur i7, 16Go RAM et SSD 512Go.\nÉcouteurs Bluetooth avec réduction de bruit active et autonomie de 24h",
+        description: "Ordinateur portable puissant avec processeur i7, 16Go de RAM, SSD 512Go.",
         stock: 8,
         image: "../Assets/laptop.jpg", 
     },
     {
         id: 3,
-        name: "T-shirt coton ",
+        name: "T-shirt en coton",
         price: 199,
         category: "vêtements",
-        description: "T-shirt confortable en coton bio, disponible en plusieurs coloris.\nT-shirt confortable en coton bio, disponible en plusieurs coloris.",
+        description: "T-shirt confortable en coton bio, disponible en plusieurs coloris.",
         stock: 50,
         image: "../Assets/f5.jpg",  
     },
@@ -32,9 +31,9 @@ let defaultProducts = [
         name: "Vase design",
         price: 459,
         category: "maison",
-        description: "Vase moderne en céramique, parfait pour votre décoration intérieure.",
+        description: "Vase moderne en céramique, idéal pour votre décoration intérieure.",
         stock: 12,
-        image:"../Assets/doc2.jpg",  
+        image: "../Assets/doc2.jpg",  
     },
     {
         id: 5,
@@ -47,23 +46,22 @@ let defaultProducts = [
     },
     {
         id: 6,
-        name: "Écouteurs sans fils",
+        name: "Écouteurs sans fil modèle 2",
         price: 200.99,
         category: "électronique",
-        description: "Écouteurs Bluetooth avec réduction de bruit active et autonomie de 24h.",
+        description: "Écouteurs Bluetooth performants avec réduction de bruit et grande autonomie.",
         stock: 20,
         image: "../Assets/f3.jpg",  
     },
     {
         id: 7,
-        name: "Écouteurs sans fils",
+        name: "Écouteurs sans fil modèle 3",
         price: 300.99,
         category: "électronique",
-        description: "Écouteurs Bluetooth avec réduction de bruit active et autonomie de 24h.",
+        description: "Écouteurs haut de gamme avec son cristallin et réduction de bruit active.",
         stock: 20,
         image: "../Assets/f4.jpg", 
     },
-    
 ];
 
 

@@ -52,7 +52,7 @@ function showProductDetail(productId) {
                     <img src="${p.image}" alt="${p.name}" " />
                     <p>${p.name}</p>
                     <p>${p.price.toFixed(2)}€</p>
-                    <a href="product.html?id=${p.id}">Voir</a>
+                    
                 </div>
             `).join('');
 

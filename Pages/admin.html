@@ -59,23 +59,33 @@
                     <p id="totalCustomers">20</p>
                 </div>
                 <div class="stat-card">
-                    <i class="fas fa-euro-sign"></i>
-                    <h3>Revenus</h3>
-                    <p id="totalRevenue">2000 €</p>
+                    <i class="fas fa-tags"></i>
+                    <h3>Catégories</h3>
+                    <p id="totalCategories">0</p>
                 </div>
             </div>
             
-            <!-- Mise à jour des onglets pour inclure les nouveaux -->
+            <!-- Mise à jour des onglets pour inclure les catégories -->
             <div class="tabs">
                 <button class="tab active" data-tab="addProduct"><i class="fas fa-plus-circle"></i> Ajouter un produit</button>
                 <button class="tab" data-tab="manageProducts"><i class="fas fa-list"></i> Gérer les produits</button>
+                <button class="tab" data-tab="manageCategories"><i class="fas fa-tags"></i> Gérer les catégories</button>
                 <button class="tab" data-tab="manageOrders"><i class="fas fa-shopping-cart"></i> Commandes</button>
                 <button class="tab" data-tab="settings"><i class="fas fa-cog"></i> Paramètres</button>
             </div>
             
             <div class="tab-content active" id="addProduct">
-                <form id="addProductForm" class="admin-form">
+                <!-- Section des catégories à l'intérieur du formulaire d'ajout de produit -->
+                <div class="categories-section">
+                    <div class="categories-header">
+                        <h3 style="text-align:center;">Catégories disponibles</h3>
+                    </div>
+                    <div class="categories-list" id="productCategoriesDisplay">
+                        <!-- Les catégories seront affichées ici dynamiquement -->
+                    </div>
+                </div>
 
+                <form id="addProductForm" class="admin-form">
                     <div class="form-group">
                         <label for="productName">Nom du produit</label>
                         <input type="text" id="productName" required placeholder="Ex: Smartphone">
@@ -87,15 +97,7 @@
                     <div class="form-group">
                         <label for="productCategory">Catégorie</label>
                         <select id="productCategory" required>
-                            <option value="">Toutes les catégories</option>
-                            <option value="électronique">Électronique</option>
-                            <option value="vêtements">Vêtements</option>
-                            <option value="maison">Maison</option>
-                            <option value="jardin">Jardin</option>
-                            <option value="beauté">Beauté</option>
-                            <option value="sports">Sports</option>
-                            <option value="livres">Livres</option>
-                            <option value="jouets">Jouets</option>
+                            <!-- Options générées dynamiquement -->
                         </select>
                     </div>
                     <div class="form-group">
@@ -138,6 +140,23 @@
                
             </div>
             
+            <!-- Nouvel onglet pour la gestion des catégories -->
+            <div class="tab-content" id="manageCategories">
+                <div class="categories-management">
+                    <h3 style="text-align: center;">Gérer les catégories</h3>
+                    <p style="text-align: center;">Ajoutez, modifiez ou supprimez des catégories pour vos produits.</p>
+                    
+                    <div class="categories-list" id="categoriesList" style="margin-top: 10px;">
+                        <!-- Les catégories seront générées dynamiquement ici -->
+                    </div>
+                    
+                    <form id="addCategoryForm" class="category-form">
+                        <input type="text" id="newCategoryName" placeholder="Nom de la catégorie" required>
+                        <button type="submit">Ajouter une catégorie</button>
+                    </form>
+                </div>
+            </div>
+              
             <!-- Nouvel onglet Commandes -->
             <div class="tab-content" id="manageOrders">
                 <div class="orders-filter">
@@ -205,7 +224,6 @@
         </div>
     </div>
     
-
     <footer>
         <div class="container">
             <div class="footer-content">

@@ -77,7 +77,7 @@ button {
    
 }
 button:hover {
-    background-color: #45a049;
+    background-color:  var( --secondary-color);
 }
 .add-to-cart-btn:hover{
     background-color: #45a049;

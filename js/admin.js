@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initialisation des fonctions
     loadProducts();
+    loadCategories();
     updateCartCount();
     displayAdminProducts();
     initializeImagePreview();
+    displayCategories();
+    updateCategoryCount();
+    populateCategoryDropdown();
   
     // Gestion du formulaire d'ajout de produit
     const addProductForm = document.getElementById('addProductForm');
@@ -11,6 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
         addProductForm.addEventListener('submit', (e) => {
             e.preventDefault();
             addNewProduct();
+        });
+    }
+    
+    // Gestion du formulaire d'ajout de catégorie
+    const addCategoryForm = document.getElementById('addCategoryForm');
+    if (addCategoryForm) {
+        addCategoryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            addNewCategory();
         });
     }
     
@@ -22,7 +35,160 @@ document.addEventListener('DOMContentLoaded', () => {
             switchAdminTab(tab, tabId);
         });
     });
+    
+    // Gestion des paramètres du site
+    const siteSettingsForm = document.getElementById('siteSettingsForm');
+    if (siteSettingsForm) {
+        siteSettingsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveSettings();
+        });
+    }
+    
+    // Gestion du filtre des commandes
+    const filterOrdersBtn = document.getElementById('filterOrdersBtn');
+    if (filterOrdersBtn) {
+        filterOrdersBtn.addEventListener('click', () => {
+            filterOrders();
+        });
+    }
 });
+
+// Variables globales
+let categories = [];
+
+// Fonctions pour la gestion des catégories
+function loadCategories() {
+    const savedCategories = localStorage.getItem('categories');
+    if (savedCategories) {
+        categories = JSON.parse(savedCategories);
+    } else {
+        // Catégories par défaut
+        categories = ['électronique', 'vêtements', 'maison'];
+        saveCategories();
+    }
+}
+
+function saveCategories() {
+    localStorage.setItem('categories', JSON.stringify(categories));
+}
+
+function updateCategoryCount() {
+    const totalCategoriesElement = document.getElementById('totalCategories');
+    if (totalCategoriesElement) {
+        totalCategoriesElement.textContent = categories.length;
+    }
+}
+
+function displayCategories() {
+    const categoriesList = document.getElementById('categoriesList');
+    const productCategoriesDisplay = document.getElementById('productCategoriesDisplay');
+    
+    if (categoriesList) {
+        categoriesList.innerHTML = '';
+        
+        categories.forEach(category => {
+            const categoryTag = document.createElement('div');
+            categoryTag.className = 'category-tag';
+            categoryTag.innerHTML = `
+                ${escapeHtml(category)}
+                <span class="delete-category" data-category="${escapeHtml(category)}">
+                    <i class="fas fa-times"></i>
+                </span>
+            `;
+            
+            // Ajout de l'écouteur d'événement pour la suppression
+            const deleteBtn = categoryTag.querySelector('.delete-category');
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', () => {
+                    deleteCategory(category);
+                });
+            }
+            
+            categoriesList.appendChild(categoryTag);
+        });
+    }
+    
+    if (productCategoriesDisplay) {
+        productCategoriesDisplay.innerHTML = '';
+        
+        categories.forEach(category => {
+            const categoryTag = document.createElement('div');
+            categoryTag.className = 'category-tag';
+            categoryTag.textContent = category;
+            productCategoriesDisplay.appendChild(categoryTag);
+        });
+    }
+}
+
+function populateCategoryDropdown() {
+    const categorySelect = document.getElementById('productCategory');
+    if (!categorySelect) return;
+    
+    categorySelect.innerHTML = '';
+    
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categorySelect.appendChild(option);
+    });
+}
+
+function addNewCategory() {
+    const newCategoryInput = document.getElementById('newCategoryName');
+    if (!newCategoryInput) return;
+    
+    const categoryName = newCategoryInput.value.trim();
+    
+    if (!categoryName) {
+        alert('Veuillez entrer un nom de catégorie valide');
+        return;
+    }
+    
+    // Vérification si la catégorie existe déjà
+    if (categories.includes(categoryName)) {
+        alert('Cette catégorie existe déjà');
+        return;
+    }
+    
+    // Ajout de la nouvelle catégorie
+    categories.push(categoryName);
+    saveCategories();
+    
+    // Mise à jour de l'affichage
+    displayCategories();
+    updateCategoryCount();
+    populateCategoryDropdown();
+    
+    // Réinitialisation du formulaire
+    newCategoryInput.value = '';
+    
+    alert('Catégorie ajoutée avec succès !');
+}
+
+function deleteCategory(categoryName) {
+    if (confirm(`Êtes-vous sûr de vouloir supprimer la catégorie "${categoryName}" ?`)) {
+        // Vérification si des produits utilisent cette catégorie
+        const productsUsingCategory = products.filter(p => p.category === categoryName);
+        
+        if (productsUsingCategory.length > 0) {
+            alert(`Impossible de supprimer cette catégorie car ${productsUsingCategory.length} produit(s) l'utilisent encore.`);
+            return;
+        }
+        
+        // Suppression de la catégorie
+        categories = categories.filter(c => c !== categoryName);
+        saveCategories();
+        
+        // Mise à jour de l'affichage
+        displayCategories();
+        updateCategoryCount();
+        populateCategoryDropdown();
+        
+        alert('Catégorie supprimée avec succès !');
+    }
+}
 
 function displayAdminProducts() {
     const adminProductsList = document.getElementById('adminProductsList');
@@ -125,6 +291,12 @@ function showEditForm(productId, productItem) {
     const editForm = document.createElement('div');
     editForm.className = 'edit-form show';
     
+    // Création des options de catégories pour le formulaire d'édition
+    let categoryOptions = '';
+    categories.forEach(category => {
+        categoryOptions += `<option value="${escapeHtml(category)}" ${product.category === category ? 'selected' : ''}>${escapeHtml(category)}</option>`;
+    });
+    
     editForm.innerHTML = `
         <form class="admin-form" id="editForm-${productId}">
             <div>
@@ -138,9 +310,7 @@ function showEditForm(productId, productItem) {
             <div>
                 <label for="editCategory-${productId}">Catégorie</label>
                 <select id="editCategory-${productId}" required>
-                    <option value="électronique" ${product.category === 'électronique' ? 'selected' : ''}>Électronique</option>
-                    <option value="vêtements" ${product.category === 'vêtements' ? 'selected' : ''}>Vêtements</option>
-                    <option value="maison" ${product.category === 'maison' ? 'selected' : ''}>Maison</option>
+                    ${categoryOptions}
                 </select>
             </div>
             <div>
@@ -249,6 +419,12 @@ function updateProduct(productId) {
     // Sauvegarde et mise à jour de l'affichage
     saveProducts();
     displayAdminProducts();
+    
+    // Fermeture du formulaire d'édition
+    const editForm = document.querySelector('.edit-form');
+    if (editForm) {
+        editForm.remove();
+    }
     
     alert('Produit mis à jour avec succès !');
 }
@@ -372,6 +548,41 @@ function initializeImagePreview() {
             reader.readAsDataURL(e.target.files[0]);
         }
     });
+}
+
+function filterOrders() {
+    const statusFilter = document.getElementById('orderStatusFilter').value;
+    const dateFilter = document.getElementById('orderDateFilter').value;
+    // Implémentation de la logique de filtrage des commandes
+    console.log('Filtrer les commandes par:', statusFilter, dateFilter);
+    // Cette fonction serait complétée avec la logique réelle de filtrage des commandes
+}
+
+function saveSettings() {
+    // Récupération des valeurs du formulaire de paramètres
+    const siteName = document.getElementById('siteName').value;
+    const siteDescription = document.getElementById('siteDescription').value;
+    const contactEmail = document.getElementById('contactEmail').value;
+    const contactPhone = document.getElementById('contactPhone').value;
+    const freeShippingThreshold = document.getElementById('freeShippingThreshold').value;
+    const shippingFee = document.getElementById('shippingFee').value;
+    
+    // Création de l'objet de paramètres
+    const settings = {
+        siteName,
+        siteDescription,
+        contactEmail,
+        contactPhone,
+        shipping: {
+            freeThreshold: parseFloat(freeShippingThreshold),
+            standardFee: parseFloat(shippingFee)
+        }
+    };
+    
+    // Sauvegarde des paramètres dans localStorage
+    localStorage.setItem('siteSettings', JSON.stringify(settings));
+    
+    alert('Paramètres enregistrés avec succès !');
 }
 
 // Fonction utilitaire pour échapper le HTML

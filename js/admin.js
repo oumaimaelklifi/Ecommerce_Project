@@ -54,16 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Variables globales
+
 let categories = [];
 
-// Fonctions pour la gestion des catégories
 function loadCategories() {
     const savedCategories = localStorage.getItem('categories');
     if (savedCategories) {
         categories = JSON.parse(savedCategories);
     } else {
-        // Catégories par défaut
+       
         categories = ['électronique', 'vêtements', 'maison'];
         saveCategories();
     }
@@ -97,7 +96,7 @@ function displayCategories() {
                 </span>
             `;
             
-            // Ajout de l'écouteur d'événement pour la suppression
+      
             const deleteBtn = categoryTag.querySelector('.delete-category');
             if (deleteBtn) {
                 deleteBtn.addEventListener('click', () => {
@@ -152,16 +151,16 @@ function addNewCategory() {
         return;
     }
     
-    // Ajout de la nouvelle catégorie
+
     categories.push(categoryName);
     saveCategories();
     
-    // Mise à jour de l'affichage
+ 
     displayCategories();
     updateCategoryCount();
     populateCategoryDropdown();
     
-    // Réinitialisation du formulaire
+
     newCategoryInput.value = '';
     
     alert('Catégorie ajoutée avec succès !');
@@ -169,7 +168,7 @@ function addNewCategory() {
 
 function deleteCategory(categoryName) {
     if (confirm(`Êtes-vous sûr de vouloir supprimer la catégorie "${categoryName}" ?`)) {
-        // Vérification si des produits utilisent cette catégorie
+     
         const productsUsingCategory = products.filter(p => p.category === categoryName);
         
         if (productsUsingCategory.length > 0) {
@@ -177,11 +176,9 @@ function deleteCategory(categoryName) {
             return;
         }
         
-        // Suppression de la catégorie
+    
         categories = categories.filter(c => c !== categoryName);
         saveCategories();
-        
-        // Mise à jour de l'affichage
         displayCategories();
         updateCategoryCount();
         populateCategoryDropdown();
@@ -204,12 +201,9 @@ function displayAdminProducts() {
         adminProductsList.innerHTML = '<p>Aucun produit disponible.</p>';
         return;
     }
-    
-    // Création du tableau
+   
     const table = document.createElement('table');
     table.className = 'admin-products-table';
-    
-    // Création de l'en-tête
     const thead = document.createElement('thead');
     thead.innerHTML = `
         <tr>
@@ -222,10 +216,8 @@ function displayAdminProducts() {
         </tr>
     `;
     table.appendChild(thead);
-    
-    // Création du corps du tableau
-    const tbody = document.createElement('tbody');
-    
+     const tbody = document.createElement('tbody');
+
     products.forEach(product => {
         const imageUrl = product.image || 'placeholder.jpg';
         const stockClass = product.stock > 0 ? 'in-stock' : 'out-of-stock';
@@ -350,7 +342,7 @@ function showEditForm(productId, productItem) {
         });
     }
     
-    // Gestion du téléchargement de fichier
+   
     const imageFileInput = document.getElementById(`editImageFile-${productId}`);
     if (imageFileInput) {
         imageFileInput.addEventListener('change', (e) => {
@@ -366,8 +358,7 @@ function showEditForm(productId, productItem) {
             }
         });
     }
-    
-    // Gestion de la soumission du formulaire
+
     const form = document.getElementById(`editForm-${productId}`);
     if (form) {
         form.addEventListener('submit', (e) => {
@@ -375,8 +366,7 @@ function showEditForm(productId, productItem) {
             updateProduct(productId);
         });
     }
-    
-    // Gestion de l'annulation
+   
     const cancelBtn = editForm.querySelector('.cancel-edit');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', () => {
@@ -389,7 +379,7 @@ function updateProduct(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
-    // Récupération des valeurs du formulaire
+
     const nameInput = document.getElementById(`editName-${productId}`);
     const priceInput = document.getElementById(`editPrice-${productId}`);
     const categoryInput = document.getElementById(`editCategory-${productId}`);
@@ -399,15 +389,13 @@ function updateProduct(productId) {
     
     if (!nameInput || !priceInput || !categoryInput || !stockInput || !descriptionInput || !imageInput) return;
     
-    // Mise à jour du produit
+
     product.name = nameInput.value;
     product.price = parseFloat(priceInput.value);
     product.category = categoryInput.value;
     product.stock = parseInt(stockInput.value);
     product.description = descriptionInput.value;
     product.image = imageInput.value;
-    
-    // Mise à jour du panier si nécessaire
     const cartItem = cart.find(item => item.id === productId);
     if (cartItem) {
         cartItem.name = product.name;
@@ -416,11 +404,11 @@ function updateProduct(productId) {
         saveCart();
     }
     
-    // Sauvegarde et mise à jour de l'affichage
+  
     saveProducts();
     displayAdminProducts();
     
-    // Fermeture du formulaire d'édition
+
     const editForm = document.querySelector('.edit-form');
     if (editForm) {
         editForm.remove();
@@ -446,16 +434,16 @@ function addNewProduct() {
     const description = descriptionInput.value.trim();
     const image = imageInput.value.trim();
     
-    // Validation basique
+
     if (!name || isNaN(price) || price <= 0 || isNaN(stock) || stock < 0 || !description) {
         alert('Veuillez remplir tous les champs correctement');
         return;
     }
     
-    // Création du nouvel ID
+ 
     const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
     
-    // Création du nouveau produit
+ 
     const newProduct = {
         id: newId,
         name: name,
@@ -466,16 +454,15 @@ function addNewProduct() {
         image: image || 'placeholder.jpg'
     };
     
-    // Ajout du produit
+
     products.push(newProduct);
     saveProducts();
     displayAdminProducts();
     
-    // Réinitialisation du formulaire
     const addProductForm = document.getElementById('addProductForm');
     if (addProductForm) addProductForm.reset();
     
-    // Réinitialisation de l'aperçu de l'image
+   
     const productImagePreview = document.getElementById('productImagePreview');
     if (productImagePreview) {
         productImagePreview.src = 'placeholder.jpg';
@@ -486,38 +473,36 @@ function addNewProduct() {
 
 function deleteProduct(productId) {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
-        // Suppression du produit
+       
         products = products.filter(p => p.id !== productId);
         saveProducts();
         
-        // Suppression du panier si nécessaire
+     
         const cartItemIndex = cart.findIndex(item => item.id === productId);
         if (cartItemIndex !== -1) {
             cart.splice(cartItemIndex, 1);
             saveCart();
             updateCartCount();
         }
-        
-        // Mise à jour de l'affichage
+       
         displayAdminProducts();
         alert('Produit supprimé avec succès !');
     }
 }
 
 function switchAdminTab(clickedTab, tabId) {
-    // Désactivation de tous les onglets
+
     const adminTabs = document.querySelectorAll('.tab');
     adminTabs.forEach(tab => {
         tab.classList.remove('active');
     });
     
-    // Masquage de tous les contenus
+
     const adminTabContents = document.querySelectorAll('.tab-content');
     adminTabContents.forEach(content => {
         content.classList.remove('active');
     });
     
-    // Activation de l'onglet cliqué
     clickedTab.classList.add('active');
     const tabContent = document.getElementById(tabId);
     if (tabContent) tabContent.classList.add('active');
@@ -530,12 +515,12 @@ function initializeImagePreview() {
     
     if (!productImageInput || !productImagePreview || !productImageFile) return;
     
-    // Gestion de l'URL de l'image
+    
     productImageInput.addEventListener('input', () => {
         productImagePreview.src = productImageInput.value || 'placeholder.jpg';
     });
     
-    // Gestion du téléchargement de fichier
+   
     productImageFile.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) {
             const reader = new FileReader();
@@ -553,13 +538,13 @@ function initializeImagePreview() {
 function filterOrders() {
     const statusFilter = document.getElementById('orderStatusFilter').value;
     const dateFilter = document.getElementById('orderDateFilter').value;
-    // Implémentation de la logique de filtrage des commandes
+  
     console.log('Filtrer les commandes par:', statusFilter, dateFilter);
-    // Cette fonction serait complétée avec la logique réelle de filtrage des commandes
+  
 }
 
 function saveSettings() {
-    // Récupération des valeurs du formulaire de paramètres
+  
     const siteName = document.getElementById('siteName').value;
     const siteDescription = document.getElementById('siteDescription').value;
     const contactEmail = document.getElementById('contactEmail').value;
@@ -567,7 +552,6 @@ function saveSettings() {
     const freeShippingThreshold = document.getElementById('freeShippingThreshold').value;
     const shippingFee = document.getElementById('shippingFee').value;
     
-    // Création de l'objet de paramètres
     const settings = {
         siteName,
         siteDescription,
@@ -579,13 +563,13 @@ function saveSettings() {
         }
     };
     
-    // Sauvegarde des paramètres dans localStorage
+    
     localStorage.setItem('siteSettings', JSON.stringify(settings));
     
     alert('Paramètres enregistrés avec succès !');
 }
 
-// Fonction utilitaire pour échapper le HTML
+
 function escapeHtml(unsafe) {
     if (!unsafe) return '';
     return unsafe.toString()

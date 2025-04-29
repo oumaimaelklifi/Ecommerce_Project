@@ -133,7 +133,7 @@ function loadProducts() {
     
     try {
         if (savedProducts) {
-            // Essayer de charger les produits du localStorage
+       
             const parsedProducts = JSON.parse(savedProducts);
             console.log("Produits chargés depuis localStorage:", parsedProducts);
             
@@ -179,7 +179,7 @@ function saveProducts() {
     localStorage.setItem('e-boutique-products', JSON.stringify(products));
 }
 
-// Charger le panier du localStorage
+
 function loadCart() {
     const savedCart = localStorage.getItem('e-boutique-cart');
     

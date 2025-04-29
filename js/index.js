@@ -80,10 +80,10 @@ function loadCategoryOptions() {
     defaultOption.textContent = 'Toutes les catégories';
     categoryFilter.appendChild(defaultOption);
     
-    // Extraire toutes les catégories uniques de vos produits
+  
     const categories = [...new Set(products.map(product => product.category))];
     
-    // Créer et ajouter une option pour chaque catégorie
+ 
     categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category;
@@ -92,14 +92,14 @@ function loadCategoryOptions() {
     });
 }
 
-// Appeler cette fonction au chargement de la page
+
 window.addEventListener('DOMContentLoaded', function() {
     loadCategoryOptions();
-    // Afficher tous les produits au chargement initial
+
     displayProducts(products);
 });
 
-// Votre fonction filterProducts reste inchangée
+
 function filterProducts() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const categoryFilter = document.getElementById('categoryFilter').value;

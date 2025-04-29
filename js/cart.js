@@ -1,17 +1,16 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Charger les produits et le panier
+
     loadProducts();
     
-    // Mettre à jour l'affichage du panier
+    
     updateCartDisplay();
     updateCartCount();
-    
-    // Gestionnaires d'événements
+ 
     document.getElementById('clearCartBtn').addEventListener('click', clearCart);
     document.getElementById('checkoutBtn').addEventListener('click', checkout);
 
-    // Gestion "Continuer vos achats"
+
     const continueShoppingBtn = document.getElementById('continueShoppingBtn');
     if (continueShoppingBtn) {
         continueShoppingBtn.addEventListener('click', () => {
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Mettre à jour l'affichage du panier
+
 function updateCartDisplay() {
     const cartItems = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
@@ -49,14 +48,13 @@ function updateCartDisplay() {
 
         cartTotal.textContent = '0.00';
 
-        // ➡️ Cacher les boutons
+     
         clearCartBtn.style.display = 'none';
         checkoutBtn.style.display = 'none';
 
         return;
     }
 
-    // ➡️ Sinon, afficher les boutons
     clearCartBtn.style.display = 'inline-block';
     checkoutBtn.style.display = 'inline-block';
 
@@ -95,7 +93,7 @@ function updateCartDisplay() {
 
         cartItems.appendChild(row);
 
-        // Gestionnaires d'événements
+    
         row.querySelector('.decrease-btn').addEventListener('click', (e) => {
             const id = parseInt(e.target.getAttribute('data-id'));
             decreaseQuantity(id);
@@ -115,7 +113,7 @@ function updateCartDisplay() {
     cartTotal.textContent = total.toFixed(2);
 }
 
-// Diminuer la quantité d'un produit dans le panier
+
 function decreaseQuantity(productId) {
     const itemIndex = cart.findIndex(item => item.id === productId);
     
@@ -139,7 +137,6 @@ function decreaseQuantity(productId) {
     }
 }
 
-// Augmenter la quantité d'un produit dans le panier
 function increaseQuantity(productId) {
     const product = products.find(p => p.id === productId);
     
@@ -181,7 +178,7 @@ function clearCart() {
     }
 }
 
-// Passer à la caisse
+
 function checkout() {
     if (cart.length === 0) {
         alert("Votre panier est vide.");

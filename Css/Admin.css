@@ -75,8 +75,7 @@
             display: block;
         }
         
-        
-         /* Form Styles */
+
          .admin-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -278,7 +277,7 @@
         background-color: #f1f1f1;
     }
 
-    /* Contrôles des produits */
+
     .products-controls {
         display: flex;
         justify-content: space-between;
@@ -372,7 +371,7 @@
         color: #c62828;
     }
 
-    /* Style des boutons */
+ 
     .product-actions-cell {
         display: flex;
         gap: 8px;
@@ -419,7 +418,7 @@
         font-size: 0.9em;
     }
 
-    /* Responsive */
+
     @media (max-width: 768px) {
         .admin-products-table {
             display: block;
@@ -535,7 +534,7 @@
         background-color: var(--secondary-color);
     }
 
-    /* Style pour l'onglet Catégories */
+
     .tab-content#manageCategories {
         padding: 1.5rem;
     }

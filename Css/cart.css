@@ -30,7 +30,7 @@
     display: flex;
     align-items: center;
     margin: 0 20px;
-    gap: 10px; /* Ajout d'un espacement entre les boutons + et - */
+    gap: 10px; 
 }
 
 .quantity-btn {

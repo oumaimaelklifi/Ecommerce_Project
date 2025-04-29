@@ -1,4 +1,4 @@
-/* Variables pour une maintenance facile */
+
 :root {
     --primary-color: #3a86ff;
     --secondary-color: #8338ec;
@@ -126,7 +126,7 @@
     
   }
   
-  /* Responsive */
+
   @media (max-width: 768px) {
     .product-detail {
       flex-direction: column;
@@ -144,7 +144,6 @@
       flex-direction: column;
     }
   }
-/* Container général pour les produits similaires */
 .related-products {
   display: flex;
   flex-wrap: wrap;
@@ -154,25 +153,25 @@
  margin-bottom: 30px;
   background: #f9f9f9;
   border-radius: 12px;
-  max-width: 1200px; /* Plus large */
+  max-width: 1200px; 
  
   
 }
 
-/* Chaque produit similaire */
+
 .related-product {
   background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 15px;
   text-align: center;
-  width: 250px; /* Plus grand */
+  width: 250px; 
   transition: all 0.3s ease;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Image du produit */
+
 .related-product img {
   width: 100%;
   height: 180px;
@@ -181,7 +180,7 @@
   margin-bottom: 12px;
 }
 
-/* Texte sous l'image */
+
 .related-product p {
   font-size: 1rem;
   color: #333;
@@ -189,14 +188,14 @@
   margin: 5px 0;
 }
 
-/* Hover effet */
+
 .related-product:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
 }
 
-/* Titre 'Produits similaires' */
+
 .relted-titre {
  
   font-size: 1.8rem;

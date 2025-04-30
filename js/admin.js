@@ -379,7 +379,6 @@ function updateProduct(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
-
     const nameInput = document.getElementById(`editName-${productId}`);
     const priceInput = document.getElementById(`editPrice-${productId}`);
     const categoryInput = document.getElementById(`editCategory-${productId}`);

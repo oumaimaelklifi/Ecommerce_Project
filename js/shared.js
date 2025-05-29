@@ -46,33 +46,9 @@ let defaultProducts = [
             stock:400,
             description: "Jean durable de qualité supérieure."
         },
-        {
-            id: 5,
-            name: "Roman Bestseller",
-            price: 19.99,
-            category: "Livres",
-            image: "   ../Assets/livre2.jpeg",
-            stock:20,
-            description: "Le dernier roman à succès qui captivera votre attention."
-        },
-        {
-            id: 6,
-            name: "laila",
-            price: 19.99,
-            category: "Livres",
-            image: "../Assets/livre3.jpeg",
-            stock:40,
-            description: "Le dernier roman à succès qui captivera votre attention."
-        },
-        {
-            id: 7,
-            name: "Guide Pratique",
-            price: 24.99,
-            category: "Livres",
-            stock:90,
-            image: "../Assets/livre1.jpeg",
-            description: "Un guide pratique pour améliorer votre quotidien."
-        },
+       
+   
+      
         {
             id: 8,
             name: "Lampe Design",

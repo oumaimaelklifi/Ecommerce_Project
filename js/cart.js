@@ -75,7 +75,7 @@ function updateCartDisplay() {
                 <img src="${item.image}" alt="${item.name}" width="60" style="vertical-align:middle;">
                 <div style="display:inline-block; margin-left:10px;">
                     <strong>${item.name}</strong><br>
-                    <span style="background:#eee; padding:2px 8px; border-radius:10px; font-size:12px;">${item.category}</span>
+                 
                 </div>
             </td>
             <td class="item-price">${item.price.toFixed(2)}€</td>

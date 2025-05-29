@@ -48,6 +48,7 @@ function showProductDetail(productId) {
 
         if (relatedProducts.length > 0) {
             const relatedHTML = relatedProducts.map(p => `
+              
                 <div class="related-product">
                     <img src="${p.image}" alt="${p.name}" " />
                     <p>${p.name}</p>
